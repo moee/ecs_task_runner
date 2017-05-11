@@ -4,6 +4,7 @@ import time
 import logging
 import botocore.errorfactory
 import ecstaskrunner
+import ecstaskrunner.task
 
 def run_task(**kwargs):
     client = boto3.client('ecs')
