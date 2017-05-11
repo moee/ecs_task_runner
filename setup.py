@@ -9,5 +9,6 @@ setup(name='ecstaskrunner',
     author_email='moee@users.noreply.github.com',
     url='https://github.com/moee/ecstaskrunner',
     packages=['ecstaskrunner'],
+    install_requires=['boto3']
 )
 
