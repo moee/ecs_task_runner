@@ -6,12 +6,18 @@ import botocore.errorfactory
 import ecstaskrunner
 import ecstaskrunner.task
 
+def has_failed(response):
+    return 'failures' in response
+
 def run_task(**kwargs):
+    logger = logging.getLogger('ecstaskrunner')
     client = boto3.client('ecs')
 
     response = client.run_task(**kwargs)
 
-    logger = logging.getLogger('ecstaskrunner')
+    if has_failed(response):
+        logger.warn("placing task %s on cluster %s failed: %s" % (kwargs['taskDefinition'], kwargs['cluster'], str(response['failures'])))
+        return 3
 
     taskResponse = response['tasks'][0]
 
